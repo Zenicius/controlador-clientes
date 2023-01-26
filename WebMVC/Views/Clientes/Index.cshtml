@@ -1,0 +1,164 @@
+﻿@model IEnumerable<WebMVC.Models.Cliente>
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<div id="clientes-main">
+    <h2 id="clientes-title">Clientes</h2>
+
+    <a id="clientes-new-button" class="btn btn-success" href="@Url.Action("New", "Clientes")">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-plus" viewBox="0 0 16 16">
+            <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
+            <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
+            <path d="M8.5 6.5a.5.5 0 0 0-1 0V8H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V9H10a.5.5 0 0 0 0-1H8.5V6.5Z" />
+        </svg>  Novo Cliente
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">CPF</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Data de Nascimento</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Estado Civil</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr id="row-@cliente.Id">
+                    <td>@cliente.CPF</td>
+                    <td>@cliente.Nome</td>
+                    <td>@cliente.DataNascimento.ToShortDateString()</td>
+                    <td>@cliente.Sexo</td>
+                    <td>@cliente.EstadoCivil</td>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("Info", "Clientes", new { id = cliente.Id })">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                            </svg>
+                        </a>
+                        <a class="btn btn-success" href="@Url.Action("Edit", "Clientes", new { id = cliente.Id })">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                            </svg>
+                        </a>
+                        <button type="button" class="btn btn-danger" onclick="OpenDeleteModal(@cliente.Id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<input type="hidden" id="hiddenClienteId" />
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Deletar</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja deletar o cliente? Esta ação é permanente!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" data-dismiss="modal" onclick="DeleteCliente()">Deletar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+@section scripts {
+
+    <!-- Save Cliente Notification -->
+    @if (TempData["Error"] != null)
+    {
+        <script>
+        console.log('entrou');
+        var error = "@TempData["Error"]";
+        $.notify(error, {
+                    type: 'danger',
+                    icon: 'close',
+                    align: "right",
+                    verticalAlign: "top",
+                    animation: true,
+                    animationType: "drop",
+                    close: true
+        });
+        </script>
+    }
+    else if (TempData["Message"] != null)
+    {
+        <script>
+        var msg = "@TempData["Message"]";
+        $.notify(msg, {
+                    type: 'success',
+                    icon: 'check',
+                    align: "right",
+                    verticalAlign: "top",
+                    animation: true,
+                    animationType: "drop",
+                    close: true
+        });
+        </script>
+    }
+
+    <script>
+        var OpenDeleteModal = function (id) {
+            $("#hiddenClienteId").val(id);
+            $("#deleteModal").modal('show');
+        }
+
+        var DeleteCliente = function () {
+            var clienteId = $("#hiddenClienteId").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Clientes/Delete",
+                data: { id: clienteId },
+                success: function (result) {
+                    $("#deleteModal").modal('hide');
+                    $("#row-" + clienteId).remove();
+                    $.notify('Deletado com sucesso!', {
+                        type: 'success',
+                        icon: 'check',
+                        align: "right",
+                        verticalAlign: "top",
+                        animation: true,
+                        animationType: "drop",
+                        close: true
+                    });
+                },
+                error: function (result) {
+                    $.notify('Falha ao deletar!', {
+                        type: 'danger',
+                        icon: 'close',
+                        align: "right",
+                        verticalAlign: "top",
+                        animation: true,
+                        animationType: "drop",
+                        close: true
+                    });
+                }
+            })
+        }
+    </script>
+}

@@ -1,0 +1,136 @@
+﻿@model WebMVC.Models.Cliente
+@{
+    if (Model == null)
+    {
+        ViewBag.Title = "Novo Cliente";
+    }
+    else
+    {
+        ViewBag.Title = "Editar Cliente";
+    }
+}
+
+<h2 class="clientes-reg-title">@ViewBag.Title</h2>
+
+<div class="clientes-form">
+    @using (Html.BeginForm("SaveCliente", "Clientes", FormMethod.Post, new { id = "clienteForm" }))
+    {
+        @Html.HiddenFor(model => model.Id);
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="CPF">CPF *</label>
+                @Html.TextBoxFor(model => model.CPF, new { @class = "form-control", @maxlength = "11" })
+                @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Nome">Nome *</label>
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="RG">RG</label>
+                @Html.TextBoxFor(model => model.RG, new { @class = "form-control", @maxlength = "9" })
+                @Html.ValidationMessageFor(model => model.RG, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="DataExpedicao">Data de Expedição</label>
+                @Html.TextBoxFor(model => model.DataExpedicao, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="OrgaoExpedicao">Orgão de Expedição</label>
+                @Html.DropDownListFor(model => model.OrgaoExpedicao, (IEnumerable<SelectListItem>)ViewBag.Orgaos, null, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="UFExpedicao">UF Expedição</label>
+                @Html.DropDownListFor(model => model.UFExpedicao, (IEnumerable<SelectListItem>)ViewBag.UFs, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="DataNascimento">Data de Nascimento *</label>
+                @Html.TextBoxFor(model => model.DataNascimento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.DataNascimento, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Sexo">Sexo *</label>
+                @Html.DropDownListFor(model => model.Sexo, (IEnumerable<SelectListItem>)ViewBag.Generos, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Sexo, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="EstadoCivil">Estado Civil *</label>
+                @Html.DropDownListFor(model => model.EstadoCivil, (IEnumerable<SelectListItem>)ViewBag.EstadosCivil, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstadoCivil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h3 class="clientes-reg-address">Endereço</h3>
+
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label for="CEP">CEP *</label>
+                @Html.TextBoxFor(model => model.CEP, new { @class = "form-control", @maxlength = "8" })
+                @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Logradouro">Logradouro *</label>
+                @Html.TextBoxFor(model => model.Logradouro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Logradouro, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-1">
+                <label for="Numero">Número *</label>
+                @Html.TextBoxFor(model => model.Numero, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Complemento">Complemento</label>
+                @Html.TextBoxFor(model => model.Complemento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Bairro">Bairro *</label>
+                @Html.TextBoxFor(model => model.Bairro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="Cidade">Cidade *</label>
+                @Html.TextBoxFor(model => model.Cidade, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="UF">UF *</label>
+                @Html.DropDownListFor(model => model.UF, (IEnumerable<SelectListItem>)ViewBag.UFs, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info" id="clientes-submit-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-check" viewBox="0 0 16 16">
+                <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z" />
+                <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-12Z" />
+                <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3Z" />
+            </svg>
+            Pronto
+        </button>
+    }
+</div>
+
+@section scripts {
+
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script>
+        <!--
+        $(document).ready(function () {
+            $('#CPF').mask('999.999.999-99');
+            $('#RG').mask('99.999.999-0');
+            $('#CEP').mask('99999-999');
+        });
+    </script>
+    -->
+
+}

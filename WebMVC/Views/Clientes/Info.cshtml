@@ -1,0 +1,96 @@
+﻿@model WebMVC.Models.Cliente
+@{
+    ViewBag.Title = "Informações do Cliente";
+}
+
+<h2 class="clientes-reg-title">@ViewBag.Title</h2>
+
+<div class="clientes-form">
+    <fieldset disabled>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="CPF">CPF</label>
+                @Html.TextBoxFor(model => model.CPF, new { @class = "form-control", @maxlength = "11" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Nome">Nome</label>
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="RG">RG</label>
+                @Html.TextBoxFor(model => model.RG, new { @class = "form-control", @maxlength = "9" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="DataExpedicao">Data de Expedição</label>
+                @Html.TextBoxFor(model => model.DataExpedicao, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="OrgaoExpedicao">Orgão de Expedição</label>
+                @Html.DropDownListFor(model => model.OrgaoExpedicao, (IEnumerable<SelectListItem>)ViewBag.Orgaos, null, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="UFExpedicao">UF Expedição</label>
+                @Html.DropDownListFor(model => model.UFExpedicao, (IEnumerable<SelectListItem>)ViewBag.UFs, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="DataNascimento">Data de Nascimento</label>
+                @Html.TextBoxFor(model => model.DataNascimento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Sexo">Sexo</label>
+                @Html.DropDownListFor(model => model.Sexo, (IEnumerable<SelectListItem>)ViewBag.Generos, null, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="EstadoCivil">Estado Civil</label>
+                @Html.DropDownListFor(model => model.EstadoCivil, (IEnumerable<SelectListItem>)ViewBag.EstadosCivil, null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <h3 class="clientes-reg-address">Endereço</h3>
+
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label for="CEP">CEP</label>
+                @Html.TextBoxFor(model => model.CEP, new { @class = "form-control", @maxlength = "8" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Logradouro">Logradouro</label>
+                @Html.TextBoxFor(model => model.Logradouro, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-1">
+                <label for="Numero">Número</label>
+                @Html.TextBoxFor(model => model.Numero, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Complemento">Complemento</label>
+                @Html.TextBoxFor(model => model.Complemento, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="Bairro">Bairro</label>
+                @Html.TextBoxFor(model => model.Bairro, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="Cidade">Cidade</label>
+                @Html.TextBoxFor(model => model.Cidade, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-3">
+                <label for="UF">UF</label>
+                @Html.DropDownListFor(model => model.UF, (IEnumerable<SelectListItem>)ViewBag.UFs, null, new { @class = "form-control" })
+            </div>
+        </div>
+    </fieldset>
+
+    <a class="btn btn-success" id="clientes-edit-btn" href="@Url.Action("Edit", "Clientes", new { id = Model.Id })">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+        </svg>
+        Editar
+    </a>
+</div>
